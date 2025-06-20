@@ -1,0 +1,9 @@
+{
+    "archivo_analizado": "iac/network_config.json",
+    "errores": [
+        "IP peligrosa permitida: 0.0.0.0/0"
+    ],
+    "advertencias": [
+        "Puerto inseguro (<1024): 22"
+    ]
+}

@@ -1,0 +1,85 @@
+{
+    "issues": [
+        {
+            "rule": {
+                "name": "terraform_required_version",
+                "severity": "warning",
+                "link": "https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.12.0/docs/rules/terraform_required_version.md"
+            },
+            "message": "terraform \"required_version\" attribute is required",
+            "range": {
+                "filename": "main.tf",
+                "start": {
+                    "line": 1,
+                    "column": 1
+                },
+                "end": {
+                    "line": 1,
+                    "column": 1
+                }
+            },
+            "callers": []
+        },
+        {
+            "rule": {
+                "name": "terraform_deprecated_interpolation",
+                "severity": "warning",
+                "link": "https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.12.0/docs/rules/terraform_deprecated_interpolation.md"
+            },
+            "message": "Interpolation-only expressions are deprecated in Terraform v0.12.14",
+            "range": {
+                "filename": "main.tf",
+                "start": {
+                    "line": 8,
+                    "column": 18
+                },
+                "end": {
+                    "line": 8,
+                    "column": 34
+                }
+            },
+            "callers": []
+        },
+        {
+            "rule": {
+                "name": "terraform_required_providers",
+                "severity": "warning",
+                "link": "https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.12.0/docs/rules/terraform_required_providers.md"
+            },
+            "message": "Missing version constraint for provider \"null\" in `required_providers`",
+            "range": {
+                "filename": "main.tf",
+                "start": {
+                    "line": 19,
+                    "column": 1
+                },
+                "end": {
+                    "line": 19,
+                    "column": 49
+                }
+            },
+            "callers": []
+        },
+        {
+            "rule": {
+                "name": "terraform_deprecated_interpolation",
+                "severity": "warning",
+                "link": "https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.12.0/docs/rules/terraform_deprecated_interpolation.md"
+            },
+            "message": "Interpolation-only expressions are deprecated in Terraform v0.12.14",
+            "range": {
+                "filename": "main.tf",
+                "start": {
+                    "line": 25,
+                    "column": 18
+                },
+                "end": {
+                    "line": 25,
+                    "column": 34
+                }
+            },
+            "callers": []
+        }
+    ],
+    "errors": []
+}

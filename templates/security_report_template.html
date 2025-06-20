@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Security Dashboard</title>
+        <style>
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f4f6f9;
+                color: #333;
+                margin: 2rem;
+            }
+
+            h1 {
+                color: #2c3e50;
+            }
+
+            h2 {
+                color: #1a73e8;
+                border-bottom: 2px solid #1a73e8;
+                padding-bottom: 5px;
+                margin-top: 40px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 1rem;
+                margin-bottom: 2.5rem;
+                background-color: white;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+                border-radius: 4px;
+                overflow: hidden;
+            }
+
+            th {
+                background-color: #e3ecf8;
+                color: #2c3e50;
+                font-weight: bold;
+                padding: 10px;
+                border-bottom: 2px solid #ccc;
+            }
+
+            td {
+                padding: 10px;
+                border-bottom: 1px solid #eee;
+            }
+
+            tr:nth-child(even) {
+                background-color: #f9fbfd;
+            }
+
+            tr:hover {
+                background-color: #e8f0fe;
+            }
+
+            .graphic {
+                width: 100%;
+                max-width: 600px;
+                margin-top: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Security Dashboard</h1>
+
+        {% if bandit_issues %}
+        <h2>Bandit - Vulnerabilidades encontradas</h2>
+        <table>
+            <tr>
+                <th>Archivo</th>
+                <th>Línea</th>
+                <th>Test ID</th>
+                <th>Mensaje</th>
+            </tr>
+            {% for issue in bandit_issues %}
+            <tr class="{{ issue.get('severity', 'HIGH') }}">
+                <td>{{ issue.file }}</td>
+                <td>{{ issue.line }}</td>
+                <td>{{ issue.test_id }}</td>
+                <td>{{ issue.issue_text }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %} {% if tflint_issues %}
+        <h2>TFLint - Reglas violadas</h2>
+        <table>
+            <tr>
+                <th>Archivo</th>
+                <th>Línea</th>
+                <th>Severidad</th>
+                <th>Regla</th>
+                <th>Mensaje</th>
+            </tr>
+            {% for issue in tflint_issues %}
+            <tr class="{{ issue.severity }}">
+                <td>{{ issue.file }}</td>
+                <td>{{ issue.line }}</td>
+                <td>{{ issue.severity }}</td>
+                <td>{{ issue.rule_name }}</td>
+                <td>{{ issue.message }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %} {% if checkov_issues %}
+        <h2>Checkov - Errores de tags</h2>
+        <table>
+            <tr>
+                <th>Archivo</th>
+                <th>Línea inicio</th>
+                <th>Línea fin</th>
+                <th>Recurso</th>
+                <th>Check</th>
+                <th>Severidad</th>
+                <th>Mensaje</th>
+            </tr>
+            {% for entry in checkov_issues %}
+            <tr class="{{ entry.severity }}">
+                <td>{{ entry.file }}</td>
+                <td>{{ entry.start_line }}</td>
+                <td>{{ entry.end_line }}</td>
+                <td>{{ entry.resource }}</td>
+                <td>{{ entry.check_id }}</td>
+                <td>{{ entry.severity }}</td>
+                <td>{{ entry.message }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+        {% if network_issues %}
+        <h2>Configuración de Red - Validaciones</h2>
+        <table>
+            <tr>
+                <th>Archivo</th>
+                <th>Tipo</th>
+                <th>Mensaje</th>
+            </tr>
+            {% for issue in network_issues %}
+            <tr>
+                <td>{{ issue.file }}</td>
+                <td>{{ issue.type }}</td>
+                <td>{{ issue.message }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+
+
+        <h2>Gráfico de la cantidad de vulnerabilidades por herramienta</h2>
+        <img src="{{ svg_file }}" alt="Gráfico de vulnerabilidades" class="graphic" />
+    </body>
+</html>

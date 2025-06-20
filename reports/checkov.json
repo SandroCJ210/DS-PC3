@@ -1,0 +1,539 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_CUSTOM_2",
+                "bc_check_id": null,
+                "check_name": "CKV_CUSTOM_TAG_FORMAT",
+                "check_result": {
+                    "result": "FAILED",
+                    "entity": {
+                        "null_resource": {
+                            "generate_config_windows[0]": {
+                                "__end_line__": 16,
+                                "__start_line__": 2,
+                                "provisioner": [
+                                    {
+                                        "local-exec": {
+                                            "command": [
+                                                "${\"ConvertTo-Json @{network_name='${var.network_name}'; cidr_block='${var.cidr_block}'; from_port=${var.from_port}; to_port=${var.to_port}; protocol='${var.protocol}'; allowed_ips=@(${join(\", \", formatlist(\"'%s'\", var.allowed_ips))})} | Out-File -Encoding utf8 ${var.file_name}\"}"
+                                            ],
+                                            "interpreter": [
+                                                [
+                                                    "-Command",
+                                                    "PowerShell"
+                                                ]
+                                            ]
+                                        }
+                                    }
+                                ],
+                                "triggers": [
+                                    {
+                                        "always_run": "2025-06-20T02:56:45Z"
+                                    }
+                                ],
+                                "__address__": "module.network_dummy.null_resource.generate_config_windows[0]"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "triggers/Name",
+                        "triggers/Owner",
+                        "triggers/Env"
+                    ]
+                },
+                "code_block": [
+                    [
+                        2,
+                        "resource \"null_resource\" \"generate_config_windows\" {\n"
+                    ],
+                    [
+                        3,
+                        "  # Este recurso solo se crea si el valor de os_type es windows\n"
+                    ],
+                    [
+                        4,
+                        "  count = var.os_type == \"windows\" ? 1 : 0\n"
+                    ],
+                    [
+                        5,
+                        "\n"
+                    ],
+                    [
+                        6,
+                        "  # Fuerza la ejecuci\u00c3\u00b3n del recurso en cada apply\n"
+                    ],
+                    [
+                        7,
+                        "  triggers = {\n"
+                    ],
+                    [
+                        8,
+                        "    always_run = \"${timestamp()}\"\n"
+                    ],
+                    [
+                        9,
+                        "  }\n"
+                    ],
+                    [
+                        10,
+                        "\n"
+                    ],
+                    [
+                        11,
+                        "  provisioner \"local-exec\" {\n"
+                    ],
+                    [
+                        12,
+                        "    # Comando PowerShell que genera un archivo json que contiene la configuraci\u00c3\u00b3n de la red\n"
+                    ],
+                    [
+                        13,
+                        "    command = \"ConvertTo-Json @{network_name='${var.network_name}'; cidr_block='${var.cidr_block}'; from_port=${var.from_port}; to_port=${var.to_port}; protocol='${var.protocol}'; allowed_ips=@(${join(\", \", formatlist(\"'%s'\", var.allowed_ips))})} | Out-File -Encoding utf8 ${var.file_name}\"\n"
+                    ],
+                    [
+                        14,
+                        "    interpreter = [\"PowerShell\", \"-Command\"]\n"
+                    ],
+                    [
+                        15,
+                        "  }\n"
+                    ],
+                    [
+                        16,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "\\main.tf",
+                "file_abs_path": "C:\\Users\\sandr\\OneDrive\\Desktop\\Universidad\\6to ciclo\\Desarrollo de Software\\CC3S2-PC3\\iac\\network_dummy\\main.tf",
+                "repo_file_path": "/iac/network_dummy/main.tf",
+                "file_line_range": [
+                    2,
+                    16
+                ],
+                "resource": "module.network_dummy.null_resource.generate_config_windows[0]",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": "MEDIUM",
+                "bc_category": null,
+                "benchmarks": {},
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": null,
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "C:\\Users\\sandr\\OneDrive\\Desktop\\Universidad\\6to ciclo\\Desarrollo de Software\\CC3S2-PC3\\iac\\network_dummy\\main.tf"
+            },
+            {
+                "check_id": "CKV_CUSTOM_2",
+                "bc_check_id": null,
+                "check_name": "CKV_CUSTOM_TAG_FORMAT",
+                "check_result": {
+                    "result": "FAILED",
+                    "entity": {
+                        "null_resource": {
+                            "generate_config_linux": {
+                                "__end_line__": 33,
+                                "__start_line__": 19,
+                                "count": [
+                                    0
+                                ],
+                                "triggers": [
+                                    {
+                                        "always_run": "2025-06-20T02:56:45Z"
+                                    }
+                                ],
+                                "provisioner/local-exec": {
+                                    "command": false,
+                                    "interpreter": [
+                                        "-c",
+                                        "/bin/bash"
+                                    ]
+                                },
+                                "provisioner/local-exec.command": "echo '{\\\"network_name\\\": \\\"${var.network_name}\\\", \\\"cidr_block\\\": \\\"${var.cidr_block}\\\", \\\"from_port\\\": ${var.from_port}, \\\"to_port\\\": ${var.to_port}, \\\"protocol\\\": \\\"${var.protocol}\\\", \\\"allowed_ips\\\": ${jsonencode(var.allowed_ips)}}' > ${var.file_name}",
+                                "provisioner/local-exec.interpreter": [
+                                    "-c",
+                                    "/bin/bash"
+                                ],
+                                "provisioner/local-exec.interpreter.0": "-c",
+                                "provisioner/local-exec.interpreter.1": "/bin/bash",
+                                "__address__": "module.network_dummy.null_resource.generate_config_linux"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "triggers/Name",
+                        "triggers/Owner",
+                        "triggers/Env"
+                    ]
+                },
+                "code_block": [
+                    [
+                        19,
+                        "resource \"null_resource\" \"generate_config_linux\" {\n"
+                    ],
+                    [
+                        20,
+                        "  # Este recurso solo se crea si el valor de os_type es linux\n"
+                    ],
+                    [
+                        21,
+                        "  count = var.os_type == \"linux\" ? 1 : 0\n"
+                    ],
+                    [
+                        22,
+                        "\n"
+                    ],
+                    [
+                        23,
+                        "  # Fuerza la ejecuci\u00c3\u00b3n del recurso en cada apply\n"
+                    ],
+                    [
+                        24,
+                        "  triggers = {\n"
+                    ],
+                    [
+                        25,
+                        "    always_run = \"${timestamp()}\"\n"
+                    ],
+                    [
+                        26,
+                        "  }\n"
+                    ],
+                    [
+                        27,
+                        "\n"
+                    ],
+                    [
+                        28,
+                        "  provisioner \"local-exec\" {\n"
+                    ],
+                    [
+                        29,
+                        "    # Comando Bash que genera un archivo json que contiene la configuraci\u00c3\u00b3n de la red\n"
+                    ],
+                    [
+                        30,
+                        "    command = \"echo '{\\\"network_name\\\": \\\"${var.network_name}\\\", \\\"cidr_block\\\": \\\"${var.cidr_block}\\\", \\\"from_port\\\": ${var.from_port}, \\\"to_port\\\": ${var.to_port}, \\\"protocol\\\": \\\"${var.protocol}\\\", \\\"allowed_ips\\\": ${jsonencode(var.allowed_ips)}}' > ${var.file_name}\"\n"
+                    ],
+                    [
+                        31,
+                        "    interpreter = [\"/bin/bash\", \"-c\"]\n"
+                    ],
+                    [
+                        32,
+                        "  }\n"
+                    ],
+                    [
+                        33,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "\\main.tf",
+                "file_abs_path": "C:\\Users\\sandr\\OneDrive\\Desktop\\Universidad\\6to ciclo\\Desarrollo de Software\\CC3S2-PC3\\iac\\network_dummy\\main.tf",
+                "repo_file_path": "/iac/network_dummy/main.tf",
+                "file_line_range": [
+                    19,
+                    33
+                ],
+                "resource": "module.network_dummy.null_resource.generate_config_linux",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": "MEDIUM",
+                "bc_category": null,
+                "benchmarks": {},
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": null,
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "C:\\Users\\sandr\\OneDrive\\Desktop\\Universidad\\6to ciclo\\Desarrollo de Software\\CC3S2-PC3\\iac\\network_dummy\\main.tf"
+            },
+            {
+                "check_id": "CKV_CUSTOM_1",
+                "bc_check_id": null,
+                "check_name": "CKV_CUSTOM_TAGS_REQUIRED",
+                "check_result": {
+                    "result": "FAILED",
+                    "entity": {
+                        "null_resource": {
+                            "generate_config_windows[0]": {
+                                "__end_line__": 16,
+                                "__start_line__": 2,
+                                "provisioner": [
+                                    {
+                                        "local-exec": {
+                                            "command": [
+                                                "${\"ConvertTo-Json @{network_name='${var.network_name}'; cidr_block='${var.cidr_block}'; from_port=${var.from_port}; to_port=${var.to_port}; protocol='${var.protocol}'; allowed_ips=@(${join(\", \", formatlist(\"'%s'\", var.allowed_ips))})} | Out-File -Encoding utf8 ${var.file_name}\"}"
+                                            ],
+                                            "interpreter": [
+                                                [
+                                                    "-Command",
+                                                    "PowerShell"
+                                                ]
+                                            ]
+                                        }
+                                    }
+                                ],
+                                "triggers": [
+                                    {
+                                        "always_run": "2025-06-20T02:56:45Z"
+                                    }
+                                ],
+                                "__address__": "module.network_dummy.null_resource.generate_config_windows[0]"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "triggers/Name",
+                        "triggers/Owner",
+                        "triggers/Env"
+                    ]
+                },
+                "code_block": [
+                    [
+                        2,
+                        "resource \"null_resource\" \"generate_config_windows\" {\n"
+                    ],
+                    [
+                        3,
+                        "  # Este recurso solo se crea si el valor de os_type es windows\n"
+                    ],
+                    [
+                        4,
+                        "  count = var.os_type == \"windows\" ? 1 : 0\n"
+                    ],
+                    [
+                        5,
+                        "\n"
+                    ],
+                    [
+                        6,
+                        "  # Fuerza la ejecuci\u00c3\u00b3n del recurso en cada apply\n"
+                    ],
+                    [
+                        7,
+                        "  triggers = {\n"
+                    ],
+                    [
+                        8,
+                        "    always_run = \"${timestamp()}\"\n"
+                    ],
+                    [
+                        9,
+                        "  }\n"
+                    ],
+                    [
+                        10,
+                        "\n"
+                    ],
+                    [
+                        11,
+                        "  provisioner \"local-exec\" {\n"
+                    ],
+                    [
+                        12,
+                        "    # Comando PowerShell que genera un archivo json que contiene la configuraci\u00c3\u00b3n de la red\n"
+                    ],
+                    [
+                        13,
+                        "    command = \"ConvertTo-Json @{network_name='${var.network_name}'; cidr_block='${var.cidr_block}'; from_port=${var.from_port}; to_port=${var.to_port}; protocol='${var.protocol}'; allowed_ips=@(${join(\", \", formatlist(\"'%s'\", var.allowed_ips))})} | Out-File -Encoding utf8 ${var.file_name}\"\n"
+                    ],
+                    [
+                        14,
+                        "    interpreter = [\"PowerShell\", \"-Command\"]\n"
+                    ],
+                    [
+                        15,
+                        "  }\n"
+                    ],
+                    [
+                        16,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "\\main.tf",
+                "file_abs_path": "C:\\Users\\sandr\\OneDrive\\Desktop\\Universidad\\6to ciclo\\Desarrollo de Software\\CC3S2-PC3\\iac\\network_dummy\\main.tf",
+                "repo_file_path": "/iac/network_dummy/main.tf",
+                "file_line_range": [
+                    2,
+                    16
+                ],
+                "resource": "module.network_dummy.null_resource.generate_config_windows[0]",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": "HIGH",
+                "bc_category": null,
+                "benchmarks": {},
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": null,
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "C:\\Users\\sandr\\OneDrive\\Desktop\\Universidad\\6to ciclo\\Desarrollo de Software\\CC3S2-PC3\\iac\\network_dummy\\main.tf"
+            },
+            {
+                "check_id": "CKV_CUSTOM_1",
+                "bc_check_id": null,
+                "check_name": "CKV_CUSTOM_TAGS_REQUIRED",
+                "check_result": {
+                    "result": "FAILED",
+                    "entity": {
+                        "null_resource": {
+                            "generate_config_linux": {
+                                "__end_line__": 33,
+                                "__start_line__": 19,
+                                "count": [
+                                    0
+                                ],
+                                "triggers": [
+                                    {
+                                        "always_run": "2025-06-20T02:56:45Z"
+                                    }
+                                ],
+                                "provisioner/local-exec": {
+                                    "command": false,
+                                    "interpreter": [
+                                        "-c",
+                                        "/bin/bash"
+                                    ]
+                                },
+                                "provisioner/local-exec.command": "echo '{\\\"network_name\\\": \\\"${var.network_name}\\\", \\\"cidr_block\\\": \\\"${var.cidr_block}\\\", \\\"from_port\\\": ${var.from_port}, \\\"to_port\\\": ${var.to_port}, \\\"protocol\\\": \\\"${var.protocol}\\\", \\\"allowed_ips\\\": ${jsonencode(var.allowed_ips)}}' > ${var.file_name}",
+                                "provisioner/local-exec.interpreter": [
+                                    "-c",
+                                    "/bin/bash"
+                                ],
+                                "provisioner/local-exec.interpreter.0": "-c",
+                                "provisioner/local-exec.interpreter.1": "/bin/bash",
+                                "__address__": "module.network_dummy.null_resource.generate_config_linux"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "triggers/Name",
+                        "triggers/Owner",
+                        "triggers/Env"
+                    ]
+                },
+                "code_block": [
+                    [
+                        19,
+                        "resource \"null_resource\" \"generate_config_linux\" {\n"
+                    ],
+                    [
+                        20,
+                        "  # Este recurso solo se crea si el valor de os_type es linux\n"
+                    ],
+                    [
+                        21,
+                        "  count = var.os_type == \"linux\" ? 1 : 0\n"
+                    ],
+                    [
+                        22,
+                        "\n"
+                    ],
+                    [
+                        23,
+                        "  # Fuerza la ejecuci\u00c3\u00b3n del recurso en cada apply\n"
+                    ],
+                    [
+                        24,
+                        "  triggers = {\n"
+                    ],
+                    [
+                        25,
+                        "    always_run = \"${timestamp()}\"\n"
+                    ],
+                    [
+                        26,
+                        "  }\n"
+                    ],
+                    [
+                        27,
+                        "\n"
+                    ],
+                    [
+                        28,
+                        "  provisioner \"local-exec\" {\n"
+                    ],
+                    [
+                        29,
+                        "    # Comando Bash que genera un archivo json que contiene la configuraci\u00c3\u00b3n de la red\n"
+                    ],
+                    [
+                        30,
+                        "    command = \"echo '{\\\"network_name\\\": \\\"${var.network_name}\\\", \\\"cidr_block\\\": \\\"${var.cidr_block}\\\", \\\"from_port\\\": ${var.from_port}, \\\"to_port\\\": ${var.to_port}, \\\"protocol\\\": \\\"${var.protocol}\\\", \\\"allowed_ips\\\": ${jsonencode(var.allowed_ips)}}' > ${var.file_name}\"\n"
+                    ],
+                    [
+                        31,
+                        "    interpreter = [\"/bin/bash\", \"-c\"]\n"
+                    ],
+                    [
+                        32,
+                        "  }\n"
+                    ],
+                    [
+                        33,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "\\main.tf",
+                "file_abs_path": "C:\\Users\\sandr\\OneDrive\\Desktop\\Universidad\\6to ciclo\\Desarrollo de Software\\CC3S2-PC3\\iac\\network_dummy\\main.tf",
+                "repo_file_path": "/iac/network_dummy/main.tf",
+                "file_line_range": [
+                    19,
+                    33
+                ],
+                "resource": "module.network_dummy.null_resource.generate_config_linux",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": "HIGH",
+                "bc_category": null,
+                "benchmarks": {},
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": null,
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "C:\\Users\\sandr\\OneDrive\\Desktop\\Universidad\\6to ciclo\\Desarrollo de Software\\CC3S2-PC3\\iac\\network_dummy\\main.tf"
+            }
+        ]
+    },
+    "summary": {
+        "passed": 7,
+        "failed": 4,
+        "skipped": 3,
+        "parsing_errors": 0,
+        "resource_count": 7,
+        "checkov_version": "3.2.441"
+    }
+}
